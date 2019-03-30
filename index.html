@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Times Sheet</title>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="reset" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="jumbotron jumbotron-fluid">
+            
+              <h1 class="display-4">Train Schedule</h1>
+              <p class="lead"></p>
+           
+<!-- this will hold 2 separate cards -->
+            <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+            <div class="card" id="mainBody">
+                    <div class="card-body">
+<!-- appended train header -->
+<div class="row">
+    <div class="col-md-12">
+            <div class="card">
+                    <div class="card-body">
+                            <h2>Current Train Schedule</h2>
+                            <hr>
+                            <div class="row">
+                                <div class= "col-3">
+                                  <p class= "appendedHeader">Train Name</p>
+                                </div>
+                                <div class= "col-3">
+                                    <p class= "appendedHeader">Destination</p>
+                                  </div>
+                                  <div class= "col-2">
+                                      <p class= "appendedHeader">Frequency (mins)</p>
+                                    </div>
+                                    <div class= "col-2">
+                                        <p class= "appendedHeader">Next Arrival</p>
+                                      </div>
+                                      <div class= "col-2">
+                                          <p class= "appendedHeader">Minutes Away</p>
+                                        </div>
+                            </div>
+                            <hr>
+          <!-- user values will be appended here -->
+                        <div class="row">
+                                <div class= "col-3">
+                                  <p class= "trainName">Train Name</p>
+                                </div>
+                                <div class= "col-3">
+                                    <p class= "destination">Destination</p>
+                                  </div>
+                                  <div class= "col-2">
+                                      <p class= "freq">Frequency (mins)</p>
+                                    </div>
+                                    <div class= "col-2">
+                                        <p class= "nextArrival">Next Arrival</p>
+                                      </div>
+                                      <div class= "col-2">
+                                          <p class= "minsAway">Minutes Away</p>
+                                   </div>
+                    </div>
+                    </div>
+                  </div>
+        </div>
+  </div>
+ 
+<!--------- This is where the user data will be appended-------------------------------------------->
+<div class="row">
+    <div class="col-md-12">
+<div class="card">
+    <div class="card-body">
+      <h3>Add a Train</h3>
+      <p>Users can add new train schedules here.</p>
+      <hr>
+
+
+<!----------------------- This is the user input area. ------------------------------------------------------>
+<!-- train name -->
+<div class="row">
+<div class="input-group mb-3">
+<input type="text" class="form-control" placeholder="Ex. Atlantic Coast Express" aria-label="Recipient's username" aria-describedby="basic-addon2">
+<div class="input-group-append">
+<span class="input-group-text" id="trainNameInput">Train Name</span>
+</div>
+</div>
+</div>
+<!-- destination -->
+<div class="row">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Ex. San Francisco" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+    <span class="input-group-text" id="destinationInput">Destination</span>
+    </div>
+    </div>
+    </div>
+<!-- first train time -->
+<div class="row">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="HH:mm (military time)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+    <span class="input-group-text" id="firstTrainInput">First Train Time</span>
+    </div>
+    </div>
+    </div>
+<!-- FREQUENCY MINS -->
+<div class="row">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="mm (mins)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+    <span class="input-group-text" id="freqInput">Frequency</span>
+    </div>
+    </div>
+    </div>
+
+
+<div class="row">
+    <div class="col-md-3">
+      <h4>Current Time/Date: </h4>
+    </div>
+        <div class="col-md-3">
+            <!-- Real Time Clock  -->
+          <h4><div id="realTimeClock"></div></h4>
+        </div>
+        <div class="col-md-3">
+            <!-- Real Time Date -->
+            <h4><div id="realTimeDate"></div></h4>
+        </div>
+        <div class="col-md-3">
+                <button id = "submit">Submit!</button>
+            </div>
+</div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+<!-- card body end -->
+      </div> 
+      </div>
+      </div>
+      </div>
+      <!-- container END -->
+    </div>
+  </div>
+</div>
+
+
+
+<!-- moment.js stuff............................. -->
+<script src="javascript/moment.js"></script>
+<script>
+    moment().format();
+</script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="javascript/app.js"></script>
+  </body>
+</html>
