@@ -1,12 +1,3 @@
-//...get the realTimeDate/Clock Working.........................
-var date = moment().format("M/D/YYYY");  
-var time = moment().format("HH:mm:ss");  
-console.log(date);
-console.log(time);
-//...append the date/time.....................................
-$("#realTimeDate").text(date);
-$("#realTimeClock").text(time);
-
 //...set up firebase.........................................
 var config = {
   apiKey: "AIzaSyCvUMwQHCWQIBip85sJdtPS7h8d2a8NCzQ",
@@ -19,55 +10,52 @@ var config = {
 firebase.initializeApp(config);
 
 //...global variables..................................//
-var database = firebase.initializeApp();
-var trainName;
-var destination;
-var freq;
-var submitTime = date + time;
+var database = firebase.database();
+
+
+//...global variables..................................//
+var trainName = "";
+var destination = "";
+var freq = "";
+var firstTrain = "";
 
 $("#submit").on("click", function(event) {
   event.preventDefault();
-
-
 
   // Grabbed values from text boxes
   trainName = $("#trainNameInput").val().trim();
   destination = $("#destinationInput").val().trim();
   freq = $("#firstTrainInput").val().trim();
-  submitTime = $("#freqInput").val().trim();
+  firstTrain = $("#freqInput").val().trim();
 
 
-  database.ref().set({
+newTrain = {
   trainName: trainName,
   destination: destination,
   freq: freq,
-  time: submitTime
-});
-database.ref().on("child_added", function(snapshot) {
-  // storing the snapshot.val() in a variable for convenience
-  var sv = snapshot.val();
+  first: firstTrain
+    };
+    database.ref().push(newTrain);
 
-  // Console.loging the last user's data
-  console.log(sv.trainName);
-  console.log(sv.destination);
-  console.log(sv.freq);
-  console.log(sv.time);
+    $("#trainNameInput").val("");
+    $("#destinationInput").val("");
+    $("#firstTrainInput").val("");
+    $("#freqInput").val("");
+
+
+     //make a database ref function to add to the DOM
+  database.ref().push(newTrain); {
+    var sv = snapshot.val();
+      // Log everything that's coming out of snapshot
+      console.log(sv.val().trainName);
+      console.log(sv.val().destination);
+      console.log(sv.val().freq);
+      console.log(sv.val().firstTrain);
 
   // Change the HTML to reflect
-  $("#trainNameInput").text().prepend(sv.trainName);
-  $("#destinationInput").text(sv.destination);
-  $("#firstTrainInput").text(sv.freq);
-  $("#freqInput").text(sv.time);
-
-  // Handle the errors
-}, function(errorObject) {
-  console.log("Errors handled: " + errorObject.code);
+  $("#trainNameInput").append(sv.val().trainName);
+  $("#destinationInput").append(sv.val().destination);
+  $("#firstTrainInput").append(sv.val().freq);
+  $("#freqInput").append(sv.val().firstTrain);
+};
 });
-});
-
-
-
-
-
-
-
