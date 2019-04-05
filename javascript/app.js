@@ -52,6 +52,25 @@ newTrain = {
       console.log(sv.val().freq);
       console.log(sv.val().firstTrain);
 
+
+  //pulling from firebase to append dom
+
+database.ref().on("child_added", function(childSnapshot) {
+  console.log(childSnapshot.val());
+
+  
+
+  var trainName = childSnapshot.val().name;
+  var destination = childSnapshot.val().destination;
+  var freq= childSnapshot.val().frequency;
+  var firstTrain = childSnapshot.val().time;
+  $("#trainNameInput").append(trainName);
+  $("#destinationInput").append(destination);
+  $("#firstTrainInput").append(freq);
+  $("#freqInput").append(firstTrain);
+
+}
+
   // Change the HTML to reflect
   $("#trainNameInput").append(sv.val().trainName);
   $("#destinationInput").append(sv.val().destination);
@@ -59,3 +78,15 @@ newTrain = {
   $("#freqInput").append(sv.val().firstTrain);
 };
 });
+
+
+
+//...get the realTimeDate/Clock Working.........................
+var date = moment().format("M/D/YYYY");  
+var time = moment().format("HH:mm:ss");  
+console.log(date);
+console.log(time);
+//...append the date/time.....................................
+$("#realTimeDate").text(date);
+$("#realTimeClock").text(time);
+
