@@ -29,13 +29,15 @@ $("#submit").on("click", function(event) {
   firstTrain = $("#freqInput").val().trim();
 
 
+
 newTrain = {
   trainName: trainName,
   destination: destination,
   freq: freq,
   first: firstTrain
     };
-    database.ref().push(newTrain);
+
+  database.ref().push(newTrain);
 
     $("#trainNameInput").val("");
     $("#destinationInput").val("");
@@ -55,15 +57,16 @@ newTrain = {
 
   //pulling from firebase to append dom
 
-database.ref().on("child_added", function(childSnapshot) {
-  console.log(childSnapshot.val());
+ database.ref().on("child_added", function(childSnapshot) {
+    console.log(childSnapshot.val());
 
+    
   
-
   var trainName = childSnapshot.val().name;
   var destination = childSnapshot.val().destination;
-  var freq= childSnapshot.val().frequency;
   var firstTrain = childSnapshot.val().time;
+  var freq = childSnapshot.val().frequency;
+ 
   $("#trainNameInput").append(trainName);
   $("#destinationInput").append(destination);
   $("#firstTrainInput").append(freq);
