@@ -9,32 +9,25 @@ var config = {
 };
 firebase.initializeApp(config);
 
-//...global variables..................................//
 var database = firebase.database();
 
-
-//...global variables..................................//
-var trainName = "";
-var destination = "";
-var freq = "";
-var firstTrain = "";
 
 $("#submit").on("click", function(event) {
   event.preventDefault();
 
   // Grabbed values from text boxes
-  trainName = $("#trainNameInput").val().trim();
-  destination = $("#destinationInput").val().trim();
-  freq = $("#firstTrainInput").val().trim();
-  firstTrain = $("#freqInput").val().trim();
+  var trainName = $("#trainNameInput").val().trim();
+  var destination = $("#destinationInput").val().trim();
+  var freq = $("#firstTrainInput").val().trim();
+  var firstTrain = $("#freqInput").val().trim();
 
 
-
-newTrain = {
+// push new train values to firebase
+var newTrain = {
   trainName: trainName,
   destination: destination,
   freq: freq,
-  first: firstTrain
+  firstTrain: firstTrain
     };
 
   database.ref().push(newTrain);
@@ -44,19 +37,9 @@ newTrain = {
     $("#firstTrainInput").val("");
     $("#freqInput").val("");
 
-
-     //make a database ref function to add to the DOM
-  database.ref().push(newTrain); {
-    var sv = snapshot.val();
-      // Log everything that's coming out of snapshot
-      console.log(sv.val().trainName);
-      console.log(sv.val().destination);
-      console.log(sv.val().freq);
-      console.log(sv.val().firstTrain);
-
-
-  //pulling from firebase to append dom
-
+  });
+ 
+// pull from firebase
  database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
 
@@ -64,32 +47,32 @@ newTrain = {
   
   var trainName = childSnapshot.val().name;
   var destination = childSnapshot.val().destination;
-  var firstTrain = childSnapshot.val().time;
-  var freq = childSnapshot.val().frequency;
+  var firstTrain = childSnapshot.val().firstTrain;
+  var freq = childSnapshot.val().freq;
  
   $("#trainNameInput").append(trainName);
   $("#destinationInput").append(destination);
   $("#firstTrainInput").append(freq);
   $("#freqInput").append(firstTrain);
 
-}
 
-  // Change the HTML to reflect
-  $("#trainNameInput").append(sv.val().trainName);
-  $("#destinationInput").append(sv.val().destination);
-  $("#firstTrainInput").append(sv.val().freq);
-  $("#freqInput").append(sv.val().firstTrain);
-};
-});
+//pull info from firebase
+var newRow = [
+  $("#trainName").text(trainName).append(),
+  $("destination").text(destination).append(),
+  $("freq").text(freq).append(),
+  // $("appendedNT").text(firstTrain)
+];
+$("#tbody").append(newRow);
+
+ });
 
 
-
-//...get the realTimeDate/Clock Working.........................
-var date = moment().format("M/D/YYYY");  
-var time = moment().format("HH:mm:ss");  
-console.log(date);
-console.log(time);
-//...append the date/time.....................................
-$("#realTimeDate").text(date);
-$("#realTimeClock").text(time);
-
+// //...get the realTimeDate/Clock Working.........................
+// var date = moment().format("M/D/YYYY");  
+// var time = moment().format("HH:mm:ss");  
+// console.log(date);
+// console.log(time);
+// //...append the date/time.....................................
+// $("#realTimeDate").text(date);
+// $("#realTimeClock").text(time);
