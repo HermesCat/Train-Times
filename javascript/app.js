@@ -49,25 +49,25 @@ var newTrain = {
   var destination = childSnapshot.val().destination;
   var firstTrain = childSnapshot.val().firstTrain;
   var freq = childSnapshot.val().freq;
- 
-  $("#trainNameInput").append(trainName);
-  $("#destinationInput").append(destination);
-  $("#firstTrainInput").append(freq);
-  $("#freqInput").append(firstTrain);
 
 
 //pull info from firebase
-var newRow = [
-  $("#trainName").text(trainName).append(),
-  $("destination").text(destination).append(),
-  $("freq").text(freq).append(),
-  // $("appendedNT").text(firstTrain)
-];
+var newRow = $("<tr>").append(
+  $("<td>").text(trainName),
+  $("<td>").text(destination),
+  $("<td>").text(firstTrain),
+  $("<td>").text(freq),
+  $("<hr>").text()
+  
+);
+
 $("#tbody").append(newRow);
 
  });
 
 
+// appends new row to the table body
+$("#train-table > #tbody").append(newRow);
 // //...get the realTimeDate/Clock Working.........................
 // var date = moment().format("M/D/YYYY");  
 // var time = moment().format("HH:mm:ss");  
