@@ -45,34 +45,67 @@ var newTrain = {
 
     
   
-  var trainName = childSnapshot.val().name;
+  var trainName = childSnapshot.val().trainName;
   var destination = childSnapshot.val().destination;
-  var firstTrain = childSnapshot.val().firstTrain;
+  var nextTrain = childSnapshot.val().firstTrain;
   var freq = childSnapshot.val().freq;
+
+
+// converting stuff to moment
+
+var currentTime = moment();
+
+var nextTrain;
+
+
+console.log(trainName);
+console.log(destination);
+
+
+var trainTimeConverted = moment(nextTrain, "HH:mm")
+console.log(trainTimeConverted)
+var minutesTilNextTrain;
+// displays the time of the next train based on the frequency and the first arrival time of the train
+if (trainTimeConverted > currentTime) {
+    nextTrain = trainTimeConverted;
+    minutesTilNextTrain = trainTimeConverted.diff(currentTime, 'minutes');;
+} else {
+    var minutesPast = currentTime.diff(trainTimeConverted, 'minutes');
+    var remainder = minutesPast % freq;
+    minutesTilNextTrain = freq - remainder;
+    nextTrain = currentTime.add(minutesTilNextTrain, 'minutes');
+}
+
+
+
+
 
 
 //pull info from firebase
 var newRow = $("<tr>").append(
   $("<td>").text(trainName),
   $("<td>").text(destination),
-  $("<td>").text(firstTrain),
   $("<td>").text(freq),
-  $("<hr>").text()
-  
+  $("<td>").text(nextTrain.format('HH:mm')),
+  $("<td>").text(minutesTilNextTrain)
 );
 
-$("#tbody").append(newRow);
-
- });
-
-
 // appends new row to the table body
-$("#train-table > #tbody").append(newRow);
-// //...get the realTimeDate/Clock Working.........................
-// var date = moment().format("M/D/YYYY");  
-// var time = moment().format("HH:mm:ss");  
-// console.log(date);
-// console.log(time);
-// //...append the date/time.....................................
-// $("#realTimeDate").text(date);
-// $("#realTimeClock").text(time);
+$("#train-table > tbody").append(newRow);
+
+}, function(errorObject) {
+console.log("Errors handled: " + errorObject.code);
+
+
+
+
+
+});
+//...get the realTimeDate/Clock Working.........................
+var date = moment().format("M/D/YYYY");  
+var time = moment().format("HH:mm:ss");  
+console.log(date);
+console.log(time);
+//...append the date/time.....................................
+$("#realTimeDate").text(date);
+$("#realTimeClock").text(time);
